@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07101f" />
+    <meta name="description" content="Van Gogh, un espacio de trabajo para tus imágenes." />
+    <title>Van Gogh</title>
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="preconnect" href="https://rsms.me" />
+    <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell" id="app-shell">
+      <section class="view home-view" id="view-home" aria-label="Inicio">
+        <header class="site-header glass-surface">
+          <a class="brand" href="#/" aria-label="Van Gogh, inicio">
+            <span class="brand-symbol" data-icon="mark" aria-hidden="true"></span>
+            <span>Van Gogh</span>
+          </a>
+          <div class="account-actions" id="home-account-actions"></div>
+        </header>
+
+        <main class="home-main">
+          <section class="welcome-block">
+            <span class="section-kicker"><span class="live-dot"></span>ESTUDIO FOTOGRÁFICO</span>
+            <h1>Un espacio para<br /><span>dar forma a tus ideas.</span></h1>
+            <p>Empieza con una fotografía o crea un lienzo nuevo.</p>
+          </section>
+
+          <section class="start-actions" aria-label="Empezar un proyecto">
+            <button class="start-card glass-surface" id="home-import" type="button">
+              <span class="start-icon" data-icon="image" aria-hidden="true"></span>
+              <span class="start-card-copy"><strong>Importar una imagen</strong><small>Abre una fotografía como proyecto nuevo</small></span>
+              <span class="start-arrow" data-icon="arrow" aria-hidden="true"></span>
+            </button>
+            <button class="start-card glass-surface" id="home-create" type="button">
+              <span class="start-icon create-icon" data-icon="plus" aria-hidden="true"></span>
+              <span class="start-card-copy"><strong>Crear una imagen</strong><small>Empieza con un lienzo en blanco</small></span>
+              <span class="start-arrow" data-icon="arrow" aria-hidden="true"></span>
+            </button>
+          </section>
+
+          <section class="recent-section" aria-labelledby="recent-title">
+            <div class="section-heading">
+              <div><span class="section-kicker">TU ESPACIO</span><h2 id="recent-title">Proyectos recientes</h2></div>
+              <span class="recent-count" id="recent-count"></span>
+            </div>
+            <div class="recent-grid" id="recent-projects"></div>
+          </section>
+        </main>
+        <footer class="home-footer"><span>VAN GOGH</span><span>PROYECTOS GUARDADOS EN ESTE DISPOSITIVO</span></footer>
+      </section>
+
+      <section class="view editor-view" id="view-editor" aria-label="Editor fotográfico" hidden>
+        <header class="editor-header glass-surface">
+          <button class="back-button" id="editor-home" type="button" aria-label="Volver al inicio" title="Volver al inicio"><span data-icon="back"></span></button>
+          <span class="header-divider"></span>
+          <a class="brand editor-brand" href="#/" aria-label="Van Gogh, inicio"><span class="brand-symbol" data-icon="mark" aria-hidden="true"></span><span>Van Gogh</span></a>
+          <span class="header-divider project-divider"></span>
+          <div class="editor-project-title"><span class="live-dot"></span><span id="editor-project-name">Proyecto</span></div>
+          <div class="editor-header-actions"><span class="local-save-label"><span data-icon="check"></span>Guardado localmente</span><button class="button button-glass" id="download-original" type="button" disabled><span data-icon="download"></span><span>Descargar original</span></button></div>
+        </header>
+
+        <main class="editor-layout">
+          <aside class="resource-panel glass-surface" aria-label="Biblioteca del proyecto">
+            <div class="resource-heading"><div><span class="section-kicker">PROYECTO</span><h2>Recursos</h2></div><span class="resource-count" id="resource-count">0</span></div>
+            <p class="resource-description">Imágenes guardadas en este proyecto.</p>
+            <button class="resource-import" id="resource-import" type="button"><span data-icon="plus"></span>Importar imágenes</button>
+            <input class="visually-hidden" id="resource-input" type="file" accept="image/*" multiple />
+            <div class="resource-list" id="resource-list"></div>
+            <div class="resource-footer"><span class="local-storage-dot"></span>Recursos guardados en este dispositivo</div>
+          </aside>
+
+          <section class="editor-workspace" aria-label="Lienzo del proyecto">
+            <div class="canvas-toolbar glass-surface">
+              <div class="document-meta"><span class="document-indicator"></span><span id="document-dimensions">Lienzo</span><span class="meta-separator">·</span><span id="document-kind">Fotografía</span></div>
+              <div class="zoom-controls">
+                <button class="zoom-button" id="zoom-out" type="button" aria-label="Reducir zoom" title="Reducir zoom" disabled><span data-icon="minus"></span></button>
+                <span id="zoom-value">100%</span>
+                <button class="zoom-button" id="zoom-in" type="button" aria-label="Aumentar zoom" title="Aumentar zoom"><span data-icon="plus"></span></button>
+                <span class="zoom-separator"></span>
+                <button class="zoom-button" id="zoom-reset" type="button" aria-label="Restablecer zoom" title="Restablecer zoom"><span data-icon="fit"></span></button>
+              </div>
+            </div>
+            <div class="canvas-viewport" id="canvas-viewport">
+              <div class="document-canvas" id="document-canvas">
+                <img class="document-image" id="document-image" alt="" hidden />
+                <div class="blank-canvas-message" id="blank-canvas-message"><span class="blank-sparkle" data-icon="sparkle"></span><span>Lienzo en blanco</span></div>
+              </div>
+            </div>
+            <div class="editor-status"><span id="editor-status-text">Este proyecto se guarda en tu navegador</span><span>VAN GOGH · FOTOGRAFÍA</span></div>
+          </section>
+        </main>
+      </section>
+
+      <section class="view auth-view" id="view-auth" aria-label="Cuenta local" hidden>
+        <header class="site-header auth-header glass-surface">
+          <a class="brand" href="#/" aria-label="Van Gogh, inicio"><span class="brand-symbol" data-icon="mark" aria-hidden="true"></span><span>Van Gogh</span></a>
+          <button class="text-button" id="auth-back" type="button"><span data-icon="back"></span>Volver al inicio</button>
+        </header>
+        <main class="auth-main">
+          <div class="auth-card glass-surface">
+            <span class="auth-symbol" data-icon="mark" aria-hidden="true"></span>
+            <span class="section-kicker" id="auth-kicker">CUENTA LOCAL DE PRUEBA</span>
+            <h1 id="auth-title">Iniciar sesión</h1>
+            <p class="auth-intro" id="auth-intro">Accede al perfil guardado en este navegador.</p>
+            <form id="auth-form" novalidate>
+              <label for="auth-email">Correo electrónico</label>
+              <input id="auth-email" name="email" type="email" autocomplete="email" placeholder="nombre@ejemplo.com" required />
+              <label for="auth-password">Contraseña</label>
+              <input id="auth-password" name="password" type="password" autocomplete="current-password" minlength="8" placeholder="Al menos 8 caracteres" required />
+              <div class="auth-error" id="auth-error" role="alert" hidden></div>
+              <button class="button button-primary auth-submit" id="auth-submit" type="submit">Iniciar sesión</button>
+            </form>
+            <p class="auth-switch" id="auth-switch"></p>
+            <div class="local-auth-notice"><span data-icon="info"></span><p>Prototipo local: no es una cuenta segura ni se envían datos a un servidor. La contraseña se guarda como hash con sal, nunca en texto plano. Para cuentas reales habrá que conectar un servicio de autenticación.</p></div>
+          </div>
+        </main>
+      </section>
+
+      <input class="visually-hidden" id="home-image-input" type="file" accept="image/*" />
+      <div class="toast-region" id="toast-region" aria-live="polite"></div>
+      <div class="drop-overlay" id="drop-overlay" hidden><div class="drop-card glass-surface"><span data-icon="upload"></span><strong>Suelta tu imagen aquí</strong><small>El archivo se guardará en este dispositivo</small></div></div>
+
+      <dialog class="create-dialog glass-surface" id="create-dialog" aria-labelledby="create-title">
+        <form id="create-form">
+          <div class="dialog-heading"><div><span class="section-kicker">NUEVO PROYECTO</span><h2 id="create-title">Crear una imagen</h2></div><button class="dialog-close" id="create-close" type="button" aria-label="Cerrar"><span data-icon="close"></span></button></div>
+          <p class="dialog-intro">Elige un formato para tu lienzo.</p>
+          <label for="resolution-preset">Resolución</label>
+          <select id="resolution-preset">
+            <option value="1080x1080">Cuadrado · 1080 × 1080</option>
+            <option value="1920x1080" selected>Full HD horizontal · 1920 × 1080</option>
+            <option value="1080x1920">Full HD vertical · 1080 × 1920</option>
+            <option value="2560x1440">QHD · 2560 × 1440</option>
+            <option value="3840x2160">4K · 3840 × 2160</option>
+            <option value="2480x3508">A4 · 2480 × 3508</option>
+            <option value="custom">Personalizada</option>
+          </select>
+          <div class="custom-dimensions" id="custom-dimensions" hidden>
+            <div><label for="custom-width">Anchura</label><input id="custom-width" type="number" min="1" max="32768" value="1920" inputmode="numeric" /></div>
+            <span class="dimension-times">×</span>
+            <div><label for="custom-height">Altura</label><input id="custom-height" type="number" min="1" max="32768" value="1080" inputmode="numeric" /></div>
+          </div>
+          <div class="dialog-error" id="create-error" role="alert" hidden></div>
+          <div class="dialog-actions"><button class="button button-glass" id="create-cancel" type="button">Cancelar</button><button class="button button-primary" type="submit"><span data-icon="plus"></span>Crear lienzo</button></div>
+        </form>
+      </dialog>
+    </div>
+  </body>
+</html>
