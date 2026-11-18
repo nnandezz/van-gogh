@@ -1,0 +1,14 @@
+node_modules/
+dist/
+outputs/
+work/
+*.local
+*.tmp
+*.temp
+*.log
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+Thumbs.db
+.DS_Store
